@@ -11,7 +11,9 @@ export const MovieCard = () => {
           key={item.id}
         >
             <img className="poster"
-            src={baseUrl+item.poster_path}/>
+            src={baseUrl+item.poster_path}
+            alt={item.title}
+            />
             <div className="text-wrap">
                 <h1 className="title">{item.title}</h1>
                 <h2 className="vote-average">평점: {item.vote_average}</h2>
