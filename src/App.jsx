@@ -7,7 +7,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<MovieCard />} />
-      <Route path="/details" element={<MovieDetail />} />
+      <Route path="/details/:id" element={<MovieDetail />} />
+      {/* 계령아.. 아이디...잊지마... */}
     </Routes>
   );
 }
