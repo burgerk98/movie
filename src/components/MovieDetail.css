@@ -8,6 +8,8 @@
 
 .detail-wrap{
     /* border: 1px solid red; */
+    /* border-radius: 3px; */
+    padding: 8px;
     display: flex;
     flex-direction: row;
     gap: 10px;
