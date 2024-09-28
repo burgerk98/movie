@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDebounce } from "../hooks/useDebounce";
 import "./navbar.css";
 
 export default function NavBar({ onSearch }) {
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchTerm = useDebounce(searchInput, 500);
+
+  useEffect(() => {
+    onSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm, onSearch]);
 
   const handleSearch = (e) => {
     const inputValue = e.target.value;
     setSearchInput(inputValue);
-    onSearch(inputValue);
   };
 
   const handleNavClick = () => {

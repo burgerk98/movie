@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDebounce } from "../hooks/useDebounce";
+// import { useDebounce } from "../hooks/useDebounce";
 import "./movieCard.css";
 
 const baseUrlImg = "https://image.tmdb.org/t/p/w500";
@@ -10,7 +10,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 export default function MovieCard({ searchTerm }) {
   const [movieListData, setMovieListData] = useState([]);
   const navigate = useNavigate();
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  // const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
@@ -21,8 +21,8 @@ export default function MovieCard({ searchTerm }) {
       try {
         let url = `${baseUrlApi}/movie/popular?api_key=${apiKey}&language=ko-KR`;
 
-        if (debouncedSearchTerm) {
-          url = `${baseUrlApi}/search/movie?api_key=${apiKey}&query=${debouncedSearchTerm}&language=ko-KR`;
+        if (searchTerm) {
+          url = `${baseUrlApi}/search/movie?api_key=${apiKey}&query=${searchTerm}&language=ko-KR`;
         }
         const response = await fetch(url);
 
@@ -39,7 +39,7 @@ export default function MovieCard({ searchTerm }) {
     };
 
     fetchMovies();
-  }, [debouncedSearchTerm]);
+  }, [searchTerm]);
 
   return (
     <div className="movie-card__container">
