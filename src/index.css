@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+:root {
+  --gray: #c9c8c4;
+  --Euphoria-blue: #a1b0ff;
+  --Orion-Blue: #4563ff;
+  --Indigo: #3345a4;
+  --Midnight: #081f5c;
+}
+
+h1 {
+  font-size: 15px;
+}
+
+h2 {
+  font-size: 11px;
+}
+h3 {
+  font-size: 23px;
+}
+label {
+  font-size: 11px;
+}

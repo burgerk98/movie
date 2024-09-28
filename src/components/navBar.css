@@ -1,0 +1,17 @@
+.navbar {
+  background-color: aqua;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.navbar__sign-wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar__logo,
+.navbar__sign-up,
+.navbar__sign-in {
+  cursor: pointer;
+}

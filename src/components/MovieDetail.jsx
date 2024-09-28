@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./movieDetail.css";
-const baseUrl_img = "https://image.tmdb.org/t/p/w500";
-const baseUrl_api = "https://api.themoviedb.org/3/movie";
+
+const baseUrlImg = "https://image.tmdb.org/t/p/w500";
+const baseUrlApi = "https://api.themoviedb.org/3/movie";
 const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function MovieDetail() {
@@ -13,8 +14,13 @@ export default function MovieDetail() {
     const fetchMovieDetail = async () => {
       try {
         const response = await fetch(
-          `${baseUrl_api}/${id}?api_key=${apiKey}&language=ko-KR`
+          `${baseUrlApi}/${id}?api_key=${apiKey}&language=ko-KR`
         );
+
+        if (!response.ok) {
+          throw new Error("네트워크 응답이 올바르지 않습니다.");
+        }
+
         const data = await response.json();
         setDetail(data);
       } catch (error) {
@@ -28,24 +34,28 @@ export default function MovieDetail() {
   if (!detail) return null;
 
   return (
-    <div className="detail-container">
-      <div className="detail-wrap" key={detail.id}>
+    <div className="movie-detail">
+      <div className="movie-detail__wrap" key={detail.id}>
         <img
-          className="detail-poster"
-          src={baseUrl_img + detail.backdrop_path}
+          className="movie-detail__poster"
+          src={baseUrlImg + detail.backdrop_path}
           alt={detail.title}
         />
-        <div className="detail-text-wrap">
-          <div className="detail-title-wrap">
-            <div className="detail-title">{detail.title}</div>
-            <div className="detail-vote-average">{detail.vote_average}</div>
+        <div className="movie-detail__text-wrap">
+          <div className="movie-detail__title-wrap">
+            <div className="movie-detail__title">{detail.title}</div>
+            <div className="movie-detail__vote-average">
+              {detail.vote_average}
+            </div>
           </div>
-          <div className="detail-genres">
+          <div className="movie-detail__genres">
             {detail.genres.map((item) => (
-              <div key={item.id}>{item.name}</div>
+              <div key={item.id} className="movie-detail__genre-item">
+                {item.name}
+              </div>
             ))}
           </div>
-          <div className="detail-overview">{detail.overview}</div>
+          <div className="movie-detail__overview">{detail.overview}</div>
         </div>
       </div>
     </div>

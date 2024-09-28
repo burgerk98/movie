@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./movieCard.css";
 
-const baseUrl_img = "https://image.tmdb.org/t/p/w500";
-const baseUrl_api = "https://api.themoviedb.org/3/movie";
+const baseUrlImg = "https://image.tmdb.org/t/p/w500";
+const baseUrlApi = "https://api.themoviedb.org/3/movie";
 const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function MovieCard() {
@@ -18,12 +18,17 @@ export default function MovieCard() {
     const fetchPopularMovies = async () => {
       try {
         const response = await fetch(
-          `${baseUrl_api}/popular?api_key=${apiKey}&language=ko-KR`
+          `${baseUrlApi}/popular?api_key=${apiKey}&language=ko-KR`
         );
+
+        if (!response.ok) {
+          throw new Error("네트워크 응답이 올바르지 않습니다.");
+        }
+
         const data = await response.json();
         setMovieListData(data.results);
       } catch (error) {
-        console.error("못불러왔슈", error);
+        console.error("영화를 불러오는 데 실패했습니다.", error);
       }
     };
 
@@ -31,21 +36,23 @@ export default function MovieCard() {
   }, []);
 
   return (
-    <div className="card-container">
+    <div className="movie-card__container">
       {movieListData.map((item) => (
         <div
-          className="card-wrap"
+          className="movie-card__wrap"
           key={item.id}
           onClick={() => handleCardClick(item.id)}
         >
           <img
-            className="poster"
-            src={baseUrl_img + item.poster_path}
+            className="movie-card__poster"
+            src={baseUrlImg + item.poster_path}
             alt={item.title}
           />
-          <div className="text-wrap">
-            <h1 className="title">{item.title}</h1>
-            <h2 className="vote-average">평점: {item.vote_average}</h2>
+          <div className="movie-card__text-wrap">
+            <h1 className="movie-card__title">{item.title}</h1>
+            <h2 className="movie-card__vote-average">
+              평점: {item.vote_average}
+            </h2>
           </div>
         </div>
       ))}
